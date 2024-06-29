@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.full_name }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+  {% if user.image_url %}
+  <div class="img-url">
+    <img src="{{ user.image_url }}"
+         alt="{{ user.full_name }}"
+         class="img">
+  </div>
+  {% endif %}
+
+  <div class="full-name">
+    <h1>{{ user.full_name }}</h1>
+
+    <form>
+      <button class="btn-edit"
+              formaction="/users/{{ user.id }}/edit"
+              formmethod="GET">Edit
+      </button>
+      <button class="btn-delete"
+              formaction="/users/{{ user.id }}/delete"
+              formmethod="POST">Delete
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
