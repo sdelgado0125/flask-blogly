@@ -3,32 +3,18 @@
 {% block title %}{{ user.full_name }}{% endblock %}
 
 {% block content %}
-
-<div class="row">
-
-  {% if user.image_url %}
-  <div class="img-url">
-    <img src="{{ user.image_url }}"
-         alt="{{ user.full_name }}"
-         class="img">
-  </div>
-  {% endif %}
-
-  <div class="full-name">
-    <h1>{{ user.full_name }}</h1>
-
-    <form>
-      <button class="btn-edit"
-              formaction="/users/{{ user.id }}/edit"
-              formmethod="GET">Edit
-      </button>
-      <button class="btn-delete"
-              formaction="/users/{{ user.id }}/delete"
-              formmethod="POST">Delete
-      </button>
-    </form>
-
-  </div>
-</div>
-
+<h1>{{ user.full_name }}</h1>
+<img src="{{ user.image_url }}" alt="User Image" class="img-thumbnail">
+<ul>
+  {% for post in user.posts %}
+  <li>
+    <a href="{{ url_for('show_post', post_id=post.id) }}">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('new_post_form', user_id=user.id) }}" class="btn btn-primary">Add Post</a>
+<a href="{{ url_for('users_edit', user_id=user.id) }}" class="btn btn-secondary">Edit User</a>
+<form action="{{ url_for('users_destroy', user_id=user.id) }}" method="POST" style="display:inline;">
+  <button class="btn btn-danger">Delete User</button>
+</form>
 {% endblock %}

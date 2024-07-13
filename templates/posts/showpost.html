@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<small>Posted by <a href="{{ url_for('users_show', user_id=post.user.id) }}">{{ post.user.first_name}} {{post.user.last_name}}</a> on {{ post.created_at }}</small>
+
+<a href="{{ url_for('posts_edit_form', post_id=post.id) }}">Edit Post</a>
+<form method="POST" action="{{ url_for('posts_delete', post_id=post.id) }}">
+    <button type="submit">Delete Post</button>
+</form>
+{% endblock %}
